@@ -13,6 +13,21 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Extract image name
+        id: extract
+        run: |
+          repo_name="${{ github.repository }}"
+          if [[ "${repo_name}" =~ docker- ]]; then
+            image_name="$(echo "${repo_name}" | sed -e 's/docker-//g')"}
+          else
+            image_name="${repo_name}"
+          fi
+          echo "image_name=${image_name}" >> $GITHUB_OUTPUT
+
+      - name: Test
+        run: |
+          echo "image_name: ${{ steps.extract.outputs.image_name }}"
+
       - name: Setup QEMU
         uses: docker/setup-qemu-action@v3
 
