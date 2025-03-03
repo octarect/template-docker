@@ -17,8 +17,8 @@ jobs:
         id: extract
         run: |
           repo_name="${{ github.repository }}"
-          if [[ "${repo_name}" =~ docker- ]]; then
-            image_name="$(echo "${repo_name}" | sed -e 's/docker-//g')"}
+          if [[ "${repo_name}" =~ template- ]]; then
+            image_name="$(echo "${repo_name}" | sed -e 's/template-//g')"}
           else
             image_name="${repo_name}"
           fi
